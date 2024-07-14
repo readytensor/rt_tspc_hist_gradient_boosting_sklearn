@@ -28,6 +28,7 @@ class TimeStepClassificatier:
     This class provides a consistent interface that can be used with other
     TimeStepClassificatier models.
     """
+
     MODEL_NAME = "HistGradientBoostingClassifier_TimeStepClassificatier"
 
     def __init__(
@@ -35,7 +36,7 @@ class TimeStepClassificatier:
         data_schema: TimeStepClassificationSchema,
         encode_len: int,
         padding_value: float,
-        loss: Optional[str] = 'log_loss',
+        loss: Optional[str] = "log_loss",
         learning_rate: Optional[float] = 0.1,
         max_depth: Optional[Union[int, None]] = None,
         max_leaf_nodes: Optional[Union[int, None]] = 31,
@@ -197,14 +198,16 @@ def train_predictor_model(
     """
     model = TimeStepClassificatier(
         data_schema=data_schema,
-        padding_value=padding_value
+        padding_value=padding_value,
         **hyperparameters,
     )
     model.fit(train_data=train_data)
     return model
 
 
-def predict_with_model(model: TimeStepClassificatier, test_data: np.ndarray) -> np.ndarray:
+def predict_with_model(
+    model: TimeStepClassificatier, test_data: np.ndarray
+) -> np.ndarray:
     """
     Make forecast.
 
@@ -218,7 +221,9 @@ def predict_with_model(model: TimeStepClassificatier, test_data: np.ndarray) -> 
     return model.predict(test_data)
 
 
-def save_predictor_model(model: TimeStepClassificatier, predictor_dir_path: str) -> None:
+def save_predictor_model(
+    model: TimeStepClassificatier, predictor_dir_path: str
+) -> None:
     """
     Save the TimeStepClassificatier model to disk.
 
@@ -244,7 +249,9 @@ def load_predictor_model(predictor_dir_path: str) -> TimeStepClassificatier:
     return TimeStepClassificatier.load(predictor_dir_path)
 
 
-def evaluate_predictor_model(model: TimeStepClassificatier, test_split: np.ndarray) -> float:
+def evaluate_predictor_model(
+    model: TimeStepClassificatier, test_split: np.ndarray
+) -> float:
     """
     Evaluate the TimeStepClassificatier model and return the r-squared value.
 
